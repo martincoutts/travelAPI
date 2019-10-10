@@ -9,6 +9,8 @@ export default class App extends Component {
     flightsArr: []
   };
 
+  // Takes in original object from API
+  // Filters out just the array for manipulation and places it into state
   componentDidMount() {
     fetch("/api/flights")
       .then(res => res.json())
@@ -18,16 +20,18 @@ export default class App extends Component {
       );
   }
 
+  // Needs to remove ':' from time and then turn into an integer
+  // Must then filter out any flights which depart before 120000
   flightPreNoon(arr) {
-    // const result = this.state.flightsArr.map(flight => {
-    //   flight.outdeparttime.split("/:").join("/");
-    // });
+    const result = arr.map(flight => {
+      flight.outdeparttime.replace(":", "");
+    });
 
     // const result = array.filter(
     //   flight => parseInt(flight.outdeparttime) < 120000
     // );
     // const result = this.state.flightsArr;
-    console.log(arr);
+    console.log(result);
   }
 
   render() {

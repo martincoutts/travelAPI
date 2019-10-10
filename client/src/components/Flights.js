@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { throws } from "assert";
 
 export default class Flights extends Component {
   state = {
     flightsPreNoon: []
+  };
+
+  handleButtonClick = () => {
+    this.props.filterTimes(this.props.flights);
   };
 
   render(props) {
@@ -15,7 +20,7 @@ export default class Flights extends Component {
           ))}
         </ul> */}
 
-        <button onClick={this.props.filterTimes}>Test</button>
+        <button onClick={this.handleButtonClick}>Test</button>
       </div>
     );
   }
