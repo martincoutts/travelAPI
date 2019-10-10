@@ -1,6 +1,4 @@
-[{
-    "flights": {
-      "flight": [
+ [
         {
           "-carrier": "British Airways",
           "-depair": "LHR",
@@ -98681,5 +98679,4 @@
           "-reservation": "ET6W1ZJ"
         }
       ]
-    }
-  }]
+  
