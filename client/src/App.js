@@ -24,14 +24,14 @@ export default class App extends Component {
   // Must then filter out any flights which depart before 120000
   flightPreNoon(arr) {
     const result = arr.map(flight => {
-      flight.outdeparttime.replace(":", "");
+      console.log(flight.outdeparttime.replace(":", "").replace(":", ""));
     });
 
     // const result = array.filter(
     //   flight => parseInt(flight.outdeparttime) < 120000
     // );
     // const result = this.state.flightsArr;
-    console.log(result);
+    // console.log(result);
   }
 
   render() {
