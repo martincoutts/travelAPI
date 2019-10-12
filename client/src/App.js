@@ -29,6 +29,9 @@ export default class App extends Component {
       })
       .then(() => {
         this.flightsToSweden(this.state.flightsArr);
+      })
+      .then(() => {
+        this.averageFlightTime(this.state.flightsArr);
       });
   }
 
@@ -149,9 +152,9 @@ export default class App extends Component {
       destAirports.push(flight.destair);
     });
 
-    // Function for testing order of array is correct
+    // // Function for testing order of array is correct
     // destAirports.map(flight => {
-    //   if (flight === "AGP") {
+    //   if (flight === "LAS") {
     //     console.log(1);
     //   }
     // });
@@ -169,11 +172,103 @@ export default class App extends Component {
     });
   };
 
+  // Calculates average journey time for LHR to DXB/////////////////////////////
+  averageFlightTime = arr => {
+    let lhrToDxb = [];
+    let dateArray = [];
+
+    arr.map(flight => {
+      if (flight.depair === "LHR" && flight.destair === "DXB") {
+        lhrToDxb.push(flight);
+      }
+    });
+
+    // Function seperates
+    lhrToDxb.map(flight => {
+      let departDate = flight.indepartdate.replace("-", "").replace("-", "");
+      let departTime = flight.indeparttime.replace(":", "").replace(":", "");
+
+      let arriveDate = flight.inarrivaldate.replace("-", "").replace("-", "");
+      let arriveTime = flight.inarrivaltime.replace(":", "").replace(":", "");
+
+      let journey = {
+        depYear: parseInt(departDate.substring(0, 4)),
+        depMonth: parseInt(departDate.substring(4, 6)),
+        depDay: parseInt(departDate.substring(6, 8)),
+        depHours: parseInt(departTime.substring(0, 2)),
+        depMinutes: parseInt(departTime.substring(2, 4)),
+        depSeconds: parseInt(departTime.substring(4, 6)),
+        arrYear: parseInt(arriveDate.substring(0, 4)),
+        arrMonth: parseInt(arriveDate.substring(4, 6)),
+        arrDay: parseInt(arriveDate.substring(6, 8)),
+        arrHours: parseInt(arriveTime.substring(0, 2)),
+        arrMinutes: parseInt(arriveTime.substring(2, 4)),
+        arrSeconds: parseInt(arriveTime.substring(4, 6))
+      };
+
+      let {
+        depYear,
+        depMonth,
+        depDay,
+        depHours,
+        depMinutes,
+        depSeconds,
+        arrYear,
+        arrMonth,
+        arrDay,
+        arrHours,
+        arrMinutes,
+        arrSeconds
+      } = journey;
+
+      let depDate = new Date(
+        depYear,
+        depMonth,
+        depDay,
+        depHours,
+        depMinutes,
+        depSeconds
+      );
+
+      let arrDate = new Date(
+        arrYear,
+        arrMonth,
+        arrDay,
+        arrHours,
+        arrMinutes,
+        arrSeconds
+      );
+      let journeyDateStamp = { depDate, arrDate };
+
+      dateArray.push(journeyDateStamp);
+    });
+
+    dateArray.map(object => {
+      let arrTime = object.arrDate.getTime();
+      let depTime = object.depDate.getTime();
+      const dxbTimeDiff = 10800000;
+      let difference = arrTime - depTime + dxbTimeDiff;
+
+      function millisToMinutes(millis) {
+        const minutes = Math.floor(millis / 60000);
+        const hoursAndMins = (minutes / 60).toFixed(2);
+
+        return hoursAndMins;
+      }
+
+      let differenceTimeMins = millisToMinutes(difference);
+      // let flightTime = differenceTimeMins / 60;
+
+      console.log(differenceTimeMins);
+    });
+
+    // console.log(dateArray);
+  };
+
   // Calculates percentage of total based on value//////////////////////////////
   findPercentage = (num1, total) => {
     let percentage = num1 / total;
     percentage = percentage * 100;
-    console.log(percentage);
   };
 
   // App component rendering////////////////////////////////////
