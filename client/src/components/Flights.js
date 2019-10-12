@@ -7,7 +7,7 @@ export default class Flights extends Component {
   };
 
   handleButtonFlightsToSweden = () => {
-    this.props.filterTimes(this.props.flights);
+    this.props.flightsToSweden(this.props.flights);
   };
 
   render(props) {
@@ -23,8 +23,8 @@ export default class Flights extends Component {
         <button onClick={this.handleButtonFlightsPreNoon}>
           Flights Pre Noon
         </button>
-        <button onClick={this.handleButtonFlightsPreNoon}>
-          Flights Pre Noon
+        <button onClick={this.handleButtonFlightsToSweden}>
+          Flights From Sweden
         </button>
       </div>
     );

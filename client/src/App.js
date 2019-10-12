@@ -9,7 +9,8 @@ export default class App extends Component {
     flightsArr: [],
     departTimesArr: [],
     flightsPreNoon: [],
-    totalflights: {}
+    totalflights: {},
+    swedishFlights: {}
   };
 
   // Takes in original object from API
@@ -76,8 +77,61 @@ export default class App extends Component {
   // Filter out which of the flights destair matches array of Swedish airport codes
   // Take returned number and work out percentage of total flights
   // At some point may need to check on segmented flights as well
+  flightsToSweden = arr => {
+    //Array of all domestic Swedish airports
+    const swedishAirportCodes = [
+      "ARN",
+      "GOT",
+      "NYO",
+      "BMA",
+      "MMX",
+      "LLA",
+      "UME"
+    ];
 
-  flightsToSweden = () => {};
+    // Variable declarations for use within function
+    let destAirports = [];
+    let segmentedJourneyAirports = [];
+
+    let fullJourneyTotal = 0;
+    let segmentedJourneyTotal = 0;
+
+    // Maps through given array and seperates out destination airports fo use in own arrays
+    arr.map(flight => {
+      // Finds destination airport and pushes to own array for full journeys
+      destAirports.push(flight.destair);
+      // Finds arrival codes for only segmented journeys and pushes to own array in case required later
+      if (flight.hasOwnProperty("segments")) {
+        flight.segments.segment.map(journey => {
+          segmentedJourneyAirports.push(journey.arrcode);
+        });
+      }
+    });
+
+    // Looks for a match with swedishAirportCodes and if true increments total variable
+    destAirports.map(airport => {
+      swedishAirportCodes.map(code => {
+        if (code === airport) {
+          fullJourneyTotal++;
+        }
+      });
+    });
+    // Looks for a match with swedishAirportCodes and if true increments total variable
+    segmentedJourneyAirports.map(airport => {
+      swedishAirportCodes.map(code => {
+        if (code === airport) {
+          segmentedJourneyTotal++;
+        }
+      });
+    });
+    // Pushes both totals to an object in state as both may not be required until a later time
+    this.setState({
+      swedishFlights: {
+        fullJourneys: fullJourneyTotal,
+        segmentedJourneys: segmentedJourneyTotal
+      }
+    });
+  };
 
   render() {
     return (
@@ -85,6 +139,7 @@ export default class App extends Component {
         <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightPreNoon}
+          flightsToSweden={this.flightsToSweden}
         />
       </div>
     );
