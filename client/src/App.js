@@ -9,12 +9,13 @@ export default class App extends Component {
     flightsArr: [],
     departTimesArr: [],
     flightsPreNoon: [],
-    totalflights: {},
+    totalFlights: {},
     swedishFlights: {}
   };
 
   // Takes in original object from API
   // Filters out just the array for manipulation and places it into state
+  // Executes all functions which are required on loading
   componentDidMount() {
     fetch("/api/flights")
       .then(res => res.json())
@@ -23,12 +24,15 @@ export default class App extends Component {
         this.setState({ flightsArr: this.state.flightsObject.flights.flight })
       )
       .then(() => {
-        this.findTotalFlights(this.state.flightsArr);
+        this.findtotalFlights(this.state.flightsArr);
+      })
+      .then(() => {
+        this.flightsToSweden(this.state.flightsArr);
       });
   }
 
-  // Find total number of flights inclduing segments
-  findTotalFlights = arr => {
+  // Find total number of flights inclduing segments///////////////////////////
+  findtotalFlights = arr => {
     let flightsNoSegments = arr.length;
     let flightsWithSegments;
     // Initialise counter var
@@ -42,17 +46,19 @@ export default class App extends Component {
         total = total + segments;
       }
     });
-    // Updating var from total
+    // Updating var from total////////////////////////////////////
     flightsWithSegments = total;
     // Adding object to state to give more flexability at later stage, can either give full journeys or total flights
     this.setState({
-      totalflights: {
+      totalFlights: {
         totalJourneys: flightsNoSegments,
-        totalflights: flightsWithSegments + flightsNoSegments
+        // Full journeys plus segmented journeys
+        totalFlights: flightsWithSegments + flightsNoSegments
       }
     });
   };
 
+  // Finds all flights departing before noon////////////////////////////////////
   flightPreNoon = arr => {
     // Initialising array for pushing map to
     let departTimesArr = [];
@@ -73,10 +79,7 @@ export default class App extends Component {
     });
   };
 
-  // Must take in array
-  // Filter out which of the flights destair matches array of Swedish airport codes
-  // Take returned number and work out percentage of total flights
-  // At some point may need to check on segmented flights as well
+  //  Finds total flights into Swedish airports/////////////////////////////////
   flightsToSweden = arr => {
     //Array of all domestic Swedish airports
     const swedishAirportCodes = [
@@ -133,13 +136,22 @@ export default class App extends Component {
     });
   };
 
+  findPercentage = (num1, total) => {
+    let percentage = num1 / total;
+    percentage = percentage * 100;
+    console.log(percentage);
+  };
+
+  // App component rendering////////////////////////////////////
   render() {
     return (
       <div className="App">
         <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightPreNoon}
-          flightsToSweden={this.flightsToSweden}
+          findPercentage={this.findPercentage}
+          swedishFlights={this.state.swedishFlights}
+          totalFlights={this.state.totalFlights}
         />
       </div>
     );

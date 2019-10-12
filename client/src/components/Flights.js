@@ -7,7 +7,10 @@ export default class Flights extends Component {
   };
 
   handleButtonFlightsToSweden = () => {
-    this.props.flightsToSweden(this.props.flights);
+    this.props.findPercentage(
+      this.props.swedishFlights.fullJourneys,
+      this.props.totalFlights.totalJourneys
+    );
   };
 
   render(props) {
