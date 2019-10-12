@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 
 import "./App.css";
 import Flights from "../src/components/Flights";
@@ -46,7 +47,7 @@ export default class App extends Component {
         total = total + segments;
       }
     });
-    // Updating var from total////////////////////////////////////
+    // Updating var from total
     flightsWithSegments = total;
     // Adding object to state to give more flexability at later stage, can either give full journeys or total flights
     this.setState({
@@ -136,6 +137,39 @@ export default class App extends Component {
     });
   };
 
+  // Sorts destination airports into popularity//////////////////////////////
+  airportPopularity = arr => {
+    let destAirports = [];
+    let sortedAirports = [];
+
+    let total = 0;
+
+    arr.map(flight => {
+      // Finds destination airport and pushes to own array for full journeys
+      destAirports.push(flight.destair);
+    });
+
+    // Function for testing order of array is correct
+    // destAirports.map(flight => {
+    //   if (flight === "AGP") {
+    //     console.log(1);
+    //   }
+    // });
+
+    sortedAirports = _.chain(destAirports)
+      .countBy()
+      .toPairs()
+      .sortBy(1)
+      .reverse()
+      .map(0)
+      .value();
+
+    this.setState({
+      airportsByPopulartiy: sortedAirports
+    });
+  };
+
+  // Calculates percentage of total based on value//////////////////////////////
   findPercentage = (num1, total) => {
     let percentage = num1 / total;
     percentage = percentage * 100;
@@ -152,6 +186,7 @@ export default class App extends Component {
           findPercentage={this.findPercentage}
           swedishFlights={this.state.swedishFlights}
           totalFlights={this.state.totalFlights}
+          airportPopularity={this.airportPopularity}
         />
       </div>
     );

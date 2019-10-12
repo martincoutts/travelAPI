@@ -13,6 +13,9 @@ export default class Flights extends Component {
     );
   };
 
+  handleButtonAirportPopularity = () => {
+    this.props.airportPopularity(this.props.flights);
+  };
   render(props) {
     return (
       <div>
@@ -28,6 +31,9 @@ export default class Flights extends Component {
         </button>
         <button onClick={this.handleButtonFlightsToSweden}>
           Flights From Sweden
+        </button>
+        <button onClick={this.handleButtonAirportPopularity}>
+          Give 10 Most Popular Airports
         </button>
       </div>
     );
