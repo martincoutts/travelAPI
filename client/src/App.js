@@ -4,6 +4,7 @@ import _ from "lodash";
 import "./App.css";
 import Header from "./components/Header";
 import MainInfo from "./components/MainInfo";
+import FlightsPreNoon from "./components/FlightsPreNoon";
 import Flights from "../src/components/Flights";
 
 export default class App extends Component {
@@ -371,6 +372,7 @@ export default class App extends Component {
           totalAirports={this.state.airportsByPopulartiy.length}
           totalCarriers={this.state.carriersByPopularity.length}
         />
+        <FlightsPreNoon />
         {/* <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightsPreNoon}
