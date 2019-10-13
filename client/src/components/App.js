@@ -4,6 +4,7 @@ import _ from "lodash";
 import Header from "./Header";
 import MainInfo from "./MainInfo";
 import FlightsPreNoon from "./FlightsPreNoon";
+import SwedishFlights from "./SwedishFlights";
 import Flights from "./Flights";
 
 export default class App extends Component {
@@ -151,11 +152,17 @@ export default class App extends Component {
         }
       });
     });
+
+    const percentage = this.findPercentage(
+      fullJourneyTotal,
+      this.state.totalFlights.totalJourneys
+    ).toFixed(2);
     // Pushes both totals to an object in state as both may not be required until a later time
     this.setState({
       swedishFlights: {
         fullJourneys: fullJourneyTotal,
-        segmentedJourneys: segmentedJourneyTotal
+        segmentedJourneys: segmentedJourneyTotal,
+        percentageOfTotalFlights: percentage
       }
     });
   };
@@ -382,6 +389,12 @@ export default class App extends Component {
           totalFlights={this.state.totalFlights}
           flightsPreNoon={this.state.flightsPreNoon}
           findPercentage={this.findPercentage}
+        />
+        <SwedishFlights
+          swedishFlights={this.state.swedishFlights}
+          percentageOfTotalFlights={
+            this.state.swedishFlights.percentageOfTotalFlights
+          }
         />
         {/* <Flights
           flights={this.state.flightsArr}
