@@ -174,23 +174,32 @@ export default class App extends Component {
 
   // Calculates average journey time for LHR to DXB/////////////////////////////
   averageFlightTime = arr => {
+    // Var declarations
     let lhrToDxb = [];
     let dateArray = [];
+    let minutesArray = [];
+    let averageMins;
+    let averageTime;
 
+    // Gets array of destination airports, no flights coming from DXB to LHR
     arr.map(flight => {
       if (flight.depair === "LHR" && flight.destair === "DXB") {
         lhrToDxb.push(flight);
       }
     });
 
-    // Function seperates
+    // Maps through list of flights
     lhrToDxb.map(flight => {
+      // Removes - and : from string of given object keys
       let departDate = flight.indepartdate.replace("-", "").replace("-", "");
       let departTime = flight.indeparttime.replace(":", "").replace(":", "");
 
       let arriveDate = flight.inarrivaldate.replace("-", "").replace("-", "");
       let arriveTime = flight.inarrivaltime.replace(":", "").replace(":", "");
 
+      // Creates an object with all data
+      // Parses specific sections from string
+      // Turns into an integer for use in calculations
       let journey = {
         depYear: parseInt(departDate.substring(0, 4)),
         depMonth: parseInt(departDate.substring(4, 6)),
@@ -206,6 +215,7 @@ export default class App extends Component {
         arrSeconds: parseInt(arriveTime.substring(4, 6))
       };
 
+      // Destructuring of props from journey object
       let {
         depYear,
         depMonth,
@@ -221,6 +231,7 @@ export default class App extends Component {
         arrSeconds
       } = journey;
 
+      // Seperates arrival and depart data
       let depDate = new Date(
         depYear,
         depMonth,
@@ -238,38 +249,68 @@ export default class App extends Component {
         arrMinutes,
         arrSeconds
       );
+      // creates an object of  depart date stamp and arrival date stamp
       let journeyDateStamp = { depDate, arrDate };
 
       dateArray.push(journeyDateStamp);
     });
 
-    dateArray.map(object => {
+    // Maps through date array
+    minutesArray = dateArray.map(object => {
+      // Turns each key into a UTC format
       let arrTime = object.arrDate.getTime();
       let depTime = object.depDate.getTime();
+      // Adds 3 hours in miliseconds to offset time difference between LDN and Dubai
       const dxbTimeDiff = 10800000;
+      // Calculates difference between arrival and depart times and offsets with Dubai time zone
       let difference = arrTime - depTime + dxbTimeDiff;
+      // Converts value to milliseconds
+      let differenceTimeMins = this.millisToMinutes(difference);
 
-      function millisToMinutes(millis) {
-        const minutes = Math.floor(millis / 60000);
-        const hoursAndMins = (minutes / 60).toFixed(2);
-
-        return hoursAndMins;
-      }
-
-      let differenceTimeMins = millisToMinutes(difference);
-      // let flightTime = differenceTimeMins / 60;
-
-      console.log(differenceTimeMins);
+      return differenceTimeMins;
     });
-
-    // console.log(dateArray);
+    // Using utility functions to calculate average value of array and average time
+    averageMins = this.findAverage(minutesArray);
+    averageTime = this.minutesToHours(averageMins);
+    // Pushes value to state as object
+    this.setState({
+      averageTimeLHRtoDXB: { averageTime }
+    });
   };
 
+  /////////////////////////Utility Functions////////////////////////////////////
   // Calculates percentage of total based on value//////////////////////////////
   findPercentage = (num1, total) => {
     let percentage = num1 / total;
     percentage = percentage * 100;
   };
+
+  // Finds average value of array//////////////////////////////
+  findAverage = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
+
+  // Calculates miliseconds into minutes or minutes and hours if required
+  millisToMinutes = millis => {
+    const minutes = Math.floor(millis / 60000);
+
+    return minutes;
+  };
+
+  // Calculates hours from minutes//////////////////////////////
+
+  //
+  minutesToHours = minutes => {
+    const hoursDec = (minutes / 60).toFixed(2);
+    const hours = Math.round(hoursDec);
+    // Takes decimal point from substring and turns into number
+    const minsDec = parseFloat(hoursDec.substring(1, 4));
+    // Turns decimal point back into minutes
+    const mins = Math.round(minsDec * 60);
+    // Outputs to object for easier manipulation
+    const hoursAndMins = { hours, mins };
+
+    return hoursAndMins;
+  };
+  /////////////////////////Utility Functions////////////////////////////////////
 
   // App component rendering////////////////////////////////////
   render() {
