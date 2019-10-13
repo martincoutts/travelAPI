@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import _ from "lodash";
 
-import "./App.css";
-import Header from "./components/Header";
-import MainInfo from "./components/MainInfo";
-import FlightsPreNoon from "./components/FlightsPreNoon";
-import Flights from "../src/components/Flights";
+import Header from "./Header";
+import MainInfo from "./MainInfo";
+import FlightsPreNoon from "./FlightsPreNoon";
+import Flights from "./Flights";
 
 export default class App extends Component {
   state = {
@@ -16,7 +15,8 @@ export default class App extends Component {
     totalFlights: {},
     swedishFlights: {},
     airportsByPopulartiy: [],
-    carriersByPopularity: []
+    carriersByPopularity: [],
+    allDataLoaded: false
   };
 
   // Takes in original object from API
@@ -46,6 +46,11 @@ export default class App extends Component {
       })
       .then(() => {
         this.carrierPopularity(this.state.flightsArr);
+      })
+      .then(() => {
+        this.setState({
+          allDataLoaded: true
+        });
       });
   }
 
@@ -333,6 +338,7 @@ export default class App extends Component {
   findPercentage = (num1, total) => {
     let percentage = num1 / total;
     percentage = percentage * 100;
+    return percentage;
   };
 
   // Finds average value of array//////////////////////////////
@@ -372,7 +378,11 @@ export default class App extends Component {
           totalAirports={this.state.airportsByPopulartiy.length}
           totalCarriers={this.state.carriersByPopularity.length}
         />
-        <FlightsPreNoon />
+        <FlightsPreNoon
+          totalFlights={this.state.totalFlights}
+          flightsPreNoon={this.state.flightsPreNoon}
+          findPercentage={this.findPercentage}
+        />
         {/* <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightsPreNoon}
