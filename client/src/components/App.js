@@ -5,6 +5,7 @@ import Header from "./Header";
 import MainInfo from "./MainInfo";
 import FlightsPreNoon from "./FlightsPreNoon";
 import SwedishFlights from "./SwedishFlights";
+import AirportsList from "./AirportsList";
 import Flights from "./Flights";
 
 export default class App extends Component {
@@ -351,6 +352,12 @@ export default class App extends Component {
   // Finds average value of array//////////////////////////////
   findAverage = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
 
+  // Cuts given array up to num value//////////////////////////////
+  sliceArr = (array, num) => {
+    let newArray = array.slice(0, num);
+    return newArray;
+  };
+
   // Calculates miliseconds into minutes or minutes and hours if required
   millisToMinutes = millis => {
     const minutes = Math.floor(millis / 60000);
@@ -395,6 +402,10 @@ export default class App extends Component {
           percentageOfTotalFlights={
             this.state.swedishFlights.percentageOfTotalFlights
           }
+        />
+        <AirportsList
+          airportsList={this.state.airportsByPopulartiy}
+          sliceArr={this.sliceArr}
         />
         {/* <Flights
           flights={this.state.flightsArr}
