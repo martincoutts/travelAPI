@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import _ from "lodash";
 
 import "./App.css";
+import Header from "./components/Header";
+import MainInfo from "./components/MainInfo";
 import Flights from "../src/components/Flights";
 
 export default class App extends Component {
@@ -11,7 +13,9 @@ export default class App extends Component {
     departTimesArr: [],
     flightsPreNoon: [],
     totalFlights: {},
-    swedishFlights: {}
+    swedishFlights: {},
+    airportsByPopulartiy: [],
+    carriersByPopularity: []
   };
 
   // Takes in original object from API
@@ -361,14 +365,20 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Flights
+        <Header />
+        <MainInfo
+          totalFlights={this.state.totalFlights.totalJourneys}
+          totalAirports={this.state.airportsByPopulartiy.length}
+          totalCarriers={this.state.carriersByPopularity.length}
+        />
+        {/* <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightsPreNoon}
           findPercentage={this.findPercentage}
           swedishFlights={this.state.swedishFlights}
           totalFlights={this.state.totalFlights}
           airportPopularity={this.airportPopularity}
-        />
+        /> */}
       </div>
     );
   }
