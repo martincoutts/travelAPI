@@ -28,10 +28,19 @@ export default class App extends Component {
         this.findtotalFlights(this.state.flightsArr);
       })
       .then(() => {
+        this.flightsPreNoon(this.state.flightsArr);
+      })
+      .then(() => {
+        this.airportPopularity(this.state.flightsArr);
+      })
+      .then(() => {
         this.flightsToSweden(this.state.flightsArr);
       })
       .then(() => {
         this.averageFlightTime(this.state.flightsArr);
+      })
+      .then(() => {
+        this.carrierPopularity(this.state.flightsArr);
       });
   }
 
@@ -63,7 +72,7 @@ export default class App extends Component {
   };
 
   // Finds all flights departing before noon////////////////////////////////////
-  flightPreNoon = arr => {
+  flightsPreNoon = arr => {
     // Initialising array for pushing map to
     let departTimesArr = [];
     // Mapping given array in arguments
@@ -277,6 +286,43 @@ export default class App extends Component {
     });
   };
 
+  // Sorts carriers into popularity//////////////////////////////
+  carrierPopularity = arr => {
+    let carriers = [];
+    let sortedCarriers = [];
+
+    carriers = arr.map(flight => {
+      // Issue with multiple spellings of EasyJet, if statement checks and corrects this
+      if (flight.carrier === "Easyjet") {
+        let changedCarrier = "EasyJet";
+        return changedCarrier;
+      } else {
+        return flight.carrier;
+      }
+    });
+
+    // // Function for testing order of array is correct
+    // carriers.map(carrier => {
+    //   if (carrier === "EasyJet") {
+    //     console.log(1);
+    //   }
+    // });
+
+    // Sorts carriers array into most frequent to least
+    sortedCarriers = _.chain(carriers)
+      .countBy()
+      .toPairs()
+      .sortBy(1)
+      .reverse()
+      .map(0)
+      .value();
+
+    // Pushes sorted array to state
+    this.setState({
+      carriersByPopularity: sortedCarriers
+    });
+  };
+
   /////////////////////////Utility Functions////////////////////////////////////
   // Calculates percentage of total based on value//////////////////////////////
   findPercentage = (num1, total) => {
@@ -317,7 +363,7 @@ export default class App extends Component {
       <div className="App">
         <Flights
           flights={this.state.flightsArr}
-          flightsPreNoon={this.flightPreNoon}
+          flightsPreNoon={this.flightsPreNoon}
           findPercentage={this.findPercentage}
           swedishFlights={this.state.swedishFlights}
           totalFlights={this.state.totalFlights}
