@@ -67,14 +67,15 @@ export default class App extends Component {
     // Initialising array for pushing map to
     let departTimesArr = [];
     // Mapping given array in arguments
-    arr.map(flight => {
+    // Pushes time iterable to array for filtering
+    departTimesArr = arr.map(flight => {
       // Needs to remove ':' from time and then turn into an integer
       let time = parseInt(
         flight.outdeparttime.replace(":", "").replace(":", ""),
         10
       );
-      // Pushes time iterable to array for filtering
-      departTimesArr.push(time);
+
+      return time;
     });
     // Must then filter out any flights which depart before 120000
     // Then pushes filtered array to application state
@@ -145,8 +146,6 @@ export default class App extends Component {
     let destAirports = [];
     let sortedAirports = [];
 
-    let total = 0;
-
     arr.map(flight => {
       // Finds destination airport and pushes to own array for full journeys
       destAirports.push(flight.destair);
@@ -189,7 +188,7 @@ export default class App extends Component {
     });
 
     // Maps through list of flights
-    lhrToDxb.map(flight => {
+    dateArray = lhrToDxb.map(flight => {
       // Removes - and : from string of given object keys
       let departDate = flight.indepartdate.replace("-", "").replace("-", "");
       let departTime = flight.indeparttime.replace(":", "").replace(":", "");
@@ -252,7 +251,7 @@ export default class App extends Component {
       // creates an object of  depart date stamp and arrival date stamp
       let journeyDateStamp = { depDate, arrDate };
 
-      dateArray.push(journeyDateStamp);
+      return journeyDateStamp;
     });
 
     // Maps through date array
