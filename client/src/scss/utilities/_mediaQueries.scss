@@ -1,3 +1,8 @@
+@mixin ultrawide-layout {
+  @media only screen and (min-height: 850px), (min-width: 1300px) {
+    @content;
+  }
+}
 @mixin multi-column-layout {
   @media only screen and (min-width: 600px) {
     @content;
@@ -11,8 +16,8 @@
   }
 }
 
-@mixin tablet-layout {
-  @media only screen and (min-width: 600px) and (max-width: 920px) {
-    @content;
-  }
-}
+// @mixin tablet-layout {
+//   @media only screen and (min-width: 600px) and (max-width: 920px) {
+//     @content;
+//   }
+// }

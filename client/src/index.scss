@@ -15,8 +15,10 @@ code {
 // Import partials
 // Variables
 @import "./scss/variables/colors";
+@import "./scss/variables/fonts";
 
 // Utilities
+@import "./scss/utilities/global-styles";
 @import "./scss/utilities/mediaQueries";
 @import "./scss/utilities/classes";
 
