@@ -6,6 +6,7 @@ import MainInfo from "./MainInfo";
 import FlightsPreNoon from "./FlightsPreNoon";
 import SwedishFlights from "./SwedishFlights";
 import AirportsList from "./AirportsList";
+import LHRToDXBTime from "./LHRToDXBTime";
 import Flights from "./Flights";
 
 export default class App extends Component {
@@ -18,6 +19,7 @@ export default class App extends Component {
     swedishFlights: {},
     airportsByPopulartiy: [],
     carriersByPopularity: [],
+    averageTimeLHRtoDXB: {},
     allDataLoaded: false
   };
 
@@ -387,26 +389,37 @@ export default class App extends Component {
     return (
       <div className="App">
         <Header />
-        <MainInfo
-          totalFlights={this.state.totalFlights.totalJourneys}
-          totalAirports={this.state.airportsByPopulartiy.length}
-          totalCarriers={this.state.carriersByPopularity.length}
-        />
-        <FlightsPreNoon
-          totalFlights={this.state.totalFlights}
-          flightsPreNoon={this.state.flightsPreNoon}
-          findPercentage={this.findPercentage}
-        />
-        <SwedishFlights
-          swedishFlights={this.state.swedishFlights}
-          percentageOfTotalFlights={
-            this.state.swedishFlights.percentageOfTotalFlights
-          }
-        />
-        <AirportsList
-          airportsList={this.state.airportsByPopulartiy}
-          sliceArr={this.sliceArr}
-        />
+        {this.state.allDataLoaded ? (
+          <div>
+            <MainInfo
+              totalFlights={this.state.totalFlights.totalJourneys}
+              totalAirports={this.state.airportsByPopulartiy.length}
+              totalCarriers={this.state.carriersByPopularity.length}
+            />
+            <FlightsPreNoon
+              totalFlights={this.state.totalFlights}
+              flightsPreNoon={this.state.flightsPreNoon}
+              findPercentage={this.findPercentage}
+            />
+            <SwedishFlights
+              swedishFlights={this.state.swedishFlights}
+              percentageOfTotalFlights={
+                this.state.swedishFlights.percentageOfTotalFlights
+              }
+            />
+            <AirportsList
+              airportsList={this.state.airportsByPopulartiy}
+              sliceArr={this.sliceArr}
+            />
+            <LHRToDXBTime
+              averageTimeLHRtoDXB={this.state.averageTimeLHRtoDXB.averageTime}
+            />
+          </div>
+        ) : (
+          <p>Loading Data</p>
+        ) // or whatever loading state you want, could be null
+        }
+
         {/* <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightsPreNoon}
