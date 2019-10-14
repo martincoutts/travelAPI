@@ -8,11 +8,13 @@ const AirportsList = props => {
   return (
     <div className="info-card" id="airports-list">
       <h2>Most Popular Airports</h2>
-      <ol>
-        {topTenAirports.map((airport, index) => {
-          return <li key={index + 1}>{airport}</li>;
-        })}
-      </ol>
+      <div>
+        <ol className="list">
+          {topTenAirports.map((airport, index) => {
+            return <li key={index + 1}>{airport}</li>;
+          })}
+        </ol>
+      </div>
     </div>
   );
 };

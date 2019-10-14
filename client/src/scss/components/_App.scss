@@ -1,24 +1,16 @@
 .App {
   min-height: 100vh;
+  padding-bottom: 10px;
 
-  // @include ultrawide-layout {
-  //   .loaded-content {
-  //     display: grid;
-  //     grid-auto-columns: 1fr;
-  //     grid-auto-rows: auto;
-  //     // grid-template-areas: "header header";
-  //   }
-  // }
   @include multi-column-layout {
     .loaded-content {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: minmax(50px, 120px) repeat(2, auto);
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: minmax(50px, 120px) auto;
       grid-template-areas:
-        "header header"
-        "main-info average-time "
-        "flights-pre-noon swedish-flights "
-        "airports-list carriers-list";
+        "header header header"
+        "main-info average-time  carriers-list"
+        "airports-list swedish-flights flights-pre-noon";
     }
   }
 
@@ -27,6 +19,17 @@
       display: flex;
       flex-direction: column;
       text-align: center;
+    }
+  }
+
+  @include ultrawide-single-row-layout {
+    .loaded-content {
+      display: grid;
+      grid-template-columns: repeat(autofit, 1fr);
+      grid-template-rows: minmax(50px, 120px) auto;
+      grid-template-areas:
+        "header header header header header header"
+        "main-info average-time  carriers-list airports-list swedish-flights flights-pre-noon";
     }
   }
 }

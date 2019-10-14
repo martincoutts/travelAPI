@@ -1,10 +1,15 @@
-@mixin ultrawide-layout {
-  @media only screen and (min-height: 850px), (min-width: 1300px) {
+@mixin ultrawide-single-row-layout {
+  @media screen and (min-width: 1300px), screen and (max-height: 500px) {
     @content;
   }
 }
+// @mixin ultrawide-multi-row-layout {
+//   @media screen and (min-width: 1300px), screen and (min-height: 500px) {
+//     @content;
+//   }
+// }
 @mixin multi-column-layout {
-  @media only screen and (min-width: 600px) {
+  @media screen and (min-width: 600px), screen and (max-width: 1300px) {
     @content;
   }
 }

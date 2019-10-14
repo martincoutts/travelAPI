@@ -1,6 +1,3 @@
 #carriers-list {
   grid-area: carriers-list;
-  @include single-column-layout {
-    margin-bottom: 20px;
-  }
 }
