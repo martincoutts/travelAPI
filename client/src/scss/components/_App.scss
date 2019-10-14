@@ -1,19 +1,19 @@
 .App {
   min-height: 100vh;
 
-  @include ultrawide-layout {
-    .loaded-content {
-      display: grid;
-      grid-auto-columns: 1fr;
-      grid-auto-rows: auto;
-      // grid-template-areas: "header header";
-    }
-  }
+  // @include ultrawide-layout {
+  //   .loaded-content {
+  //     display: grid;
+  //     grid-auto-columns: 1fr;
+  //     grid-auto-rows: auto;
+  //     // grid-template-areas: "header header";
+  //   }
+  // }
   @include multi-column-layout {
     .loaded-content {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: minmax(50px, 100px) repeat(2, auto);
+      grid-template-rows: minmax(50px, 120px) repeat(2, auto);
       grid-template-areas:
         "header header"
         "main-info average-time "

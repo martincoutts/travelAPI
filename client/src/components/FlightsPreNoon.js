@@ -13,7 +13,7 @@ const FlightsPreNoon = props => (
       theme={{
         active: {
           symbol: props.flightsPreNoon.length,
-          color: "blue",
+          color: "#41a5b5",
           trailColor: "lightgrey"
         }
       }}

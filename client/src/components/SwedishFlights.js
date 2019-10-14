@@ -12,7 +12,7 @@ const SwedishFlights = props => (
       theme={{
         active: {
           symbol: `${props.percentageOfTotalFlights}%`,
-          color: "red",
+          color: "#4941b5",
           trailColor: "lightgrey"
         }
       }}
