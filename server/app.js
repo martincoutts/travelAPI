@@ -29,3 +29,6 @@ app.on("error", error => {
 // Starting express server
 app.listen(port, () => `Server running on port ${port}`);
 console.log(`Server listening on port${port}`);
+
+// Future requirements
+// - Get concurrently working so that server and client run from one command
