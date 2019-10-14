@@ -5,7 +5,7 @@ const AirportsList = props => {
 
   return (
     <div className="info-card" id="airports-list">
-      <h2>Most Popular Airports</h2>
+      <h2>Most Popular Destination Airports</h2>
       <div>
         <ol className="list">
           {topTenAirports.map((airport, index) => {
