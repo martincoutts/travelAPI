@@ -9,7 +9,6 @@ import AirportsList from "./AirportsList";
 import LHRToDXBTime from "./LHRToDXBTime";
 import Loader from "./LoadingScreen";
 import CarriersList from "./CarriersList";
-import Flights from "./Flights";
 
 export default class App extends Component {
   state = {
@@ -429,15 +428,6 @@ export default class App extends Component {
             <Loader />
           </div>
         )}
-
-        {/* <Flights
-          flights={this.state.flightsArr}
-          flightsPreNoon={this.flightsPreNoon}
-          findPercentage={this.findPercentage}
-          swedishFlights={this.state.swedishFlights}
-          totalFlights={this.state.totalFlights}
-          airportPopularity={this.airportPopularity}
-        /> */}
       </div>
     );
   }

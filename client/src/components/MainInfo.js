@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const MainInfo = props => {
   return (
@@ -17,6 +18,13 @@ const MainInfo = props => {
       </div>
     </div>
   );
+};
+
+// Checking proptypes match
+MainInfo.propTypes = {
+  totalFlights: PropTypes.number,
+  totalAirports: PropTypes.number,
+  totalCarriers: PropTypes.number
 };
 
 export default MainInfo;

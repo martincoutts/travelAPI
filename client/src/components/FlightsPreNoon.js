@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Progress } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
 
@@ -26,5 +27,15 @@ const FlightsPreNoon = props => (
     />
   </div>
 );
+
+// Checking proptypes match
+FlightsPreNoon.propTypes = {
+  findPercentage: PropTypes.func,
+  flightsPreNoon: PropTypes.array,
+  totalFlights: PropTypes.shape({
+    totalFlights: PropTypes.number,
+    totalJourneys: PropTypes.number
+  })
+};
 
 export default FlightsPreNoon;

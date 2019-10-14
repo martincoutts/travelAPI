@@ -1,6 +1,4 @@
 import React from "react";
-import { Progress } from "react-sweet-progress";
-import "react-sweet-progress/lib/style.css";
 
 const AirportsList = props => {
   const topTenAirports = props.sliceArr(props.airportsList, 10);
