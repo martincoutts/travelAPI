@@ -28,3 +28,4 @@ app.on("error", error => {
 
 // Starting express server
 app.listen(port, () => `Server running on port ${port}`);
+console.log(`Server listening on port${port}`);
