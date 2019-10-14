@@ -1,21 +1,22 @@
-# travelAPI
+# Travel API and Client
 
 Open travelAPI directory in command line
 
 ---------Server-----------------
+
 Change to server directory
 
 ```bash
 cd server
 ```
 
-Next install server dependancies
+Next install server dependencies
 
 ```bash
 npm install
 ```
 
-Once dependancies are installed
+Once dependencies are installed
 
 ```bash
 npm run devStart
@@ -31,13 +32,13 @@ In a seperate command line change to client directory
 cd client
 ```
 
-Next install client dependancies
+Next install client dependencies
 
 ```bash
 npm install
 ```
 
-Once dependancies are installed
+Once dependencies are installed
 
 ```bash
 npm start
