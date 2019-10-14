@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import _ from "lodash";
 
-import "./App.css";
-import Flights from "../src/components/Flights";
+import Header from "./Header";
+import MainInfo from "./MainInfo";
+import FlightsPreNoon from "./FlightsPreNoon";
+import SwedishFlights from "./SwedishFlights";
+import AirportsList from "./AirportsList";
+import LHRToDXBTime from "./LHRToDXBTime";
+import Loader from "./LoadingScreen";
+import CarriersList from "./CarriersList";
+import Flights from "./Flights";
 
 export default class App extends Component {
   state = {
@@ -11,7 +18,11 @@ export default class App extends Component {
     departTimesArr: [],
     flightsPreNoon: [],
     totalFlights: {},
-    swedishFlights: {}
+    swedishFlights: {},
+    airportsByPopulartiy: [],
+    carriersByPopularity: [],
+    averageTimeLHRtoDXB: {},
+    allDataLoaded: false
   };
 
   // Takes in original object from API
@@ -41,6 +52,11 @@ export default class App extends Component {
       })
       .then(() => {
         this.carrierPopularity(this.state.flightsArr);
+      })
+      .then(() => {
+        this.setState({
+          allDataLoaded: true
+        });
       });
   }
 
@@ -141,11 +157,17 @@ export default class App extends Component {
         }
       });
     });
+
+    const percentage = this.findPercentage(
+      fullJourneyTotal,
+      this.state.totalFlights.totalJourneys
+    ).toFixed(2);
     // Pushes both totals to an object in state as both may not be required until a later time
     this.setState({
       swedishFlights: {
         fullJourneys: fullJourneyTotal,
-        segmentedJourneys: segmentedJourneyTotal
+        segmentedJourneys: segmentedJourneyTotal,
+        percentageOfTotalFlights: percentage
       }
     });
   };
@@ -328,10 +350,17 @@ export default class App extends Component {
   findPercentage = (num1, total) => {
     let percentage = num1 / total;
     percentage = percentage * 100;
+    return percentage;
   };
 
   // Finds average value of array//////////////////////////////
   findAverage = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
+
+  // Cuts given array up to num value//////////////////////////////
+  sliceArr = (array, num) => {
+    let newArray = array.slice(0, num);
+    return newArray;
+  };
 
   // Calculates miliseconds into minutes or minutes and hours if required
   millisToMinutes = millis => {
@@ -361,14 +390,51 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Flights
+        {/* Conditional rendering based on all functions having been executed within componentDidMount */}
+        {this.state.allDataLoaded ? (
+          <div className="loaded-content">
+            <Header />
+            <MainInfo
+              totalFlights={this.state.totalFlights.totalJourneys}
+              totalAirports={this.state.airportsByPopulartiy.length}
+              totalCarriers={this.state.carriersByPopularity.length}
+            />
+            <FlightsPreNoon
+              totalFlights={this.state.totalFlights}
+              flightsPreNoon={this.state.flightsPreNoon}
+              findPercentage={this.findPercentage}
+            />
+            <SwedishFlights
+              swedishFlights={this.state.swedishFlights}
+              percentageOfTotalFlights={
+                this.state.swedishFlights.percentageOfTotalFlights
+              }
+            />
+            <AirportsList
+              airportsList={this.state.airportsByPopulartiy}
+              sliceArr={this.sliceArr}
+            />
+            <LHRToDXBTime
+              averageTimeLHRtoDXB={this.state.averageTimeLHRtoDXB.averageTime}
+            />
+            <CarriersList
+              carriersList={this.state.carriersByPopularity}
+              sliceArr={this.sliceArr}
+            />
+          </div>
+        ) : (
+          //Loader from external library displays when allDataLoaded in state = false
+          <Loader />
+        )}
+
+        {/* <Flights
           flights={this.state.flightsArr}
           flightsPreNoon={this.flightsPreNoon}
           findPercentage={this.findPercentage}
           swedishFlights={this.state.swedishFlights}
           totalFlights={this.state.totalFlights}
           airportPopularity={this.airportPopularity}
-        />
+        /> */}
       </div>
     );
   }
