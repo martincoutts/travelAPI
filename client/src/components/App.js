@@ -424,7 +424,9 @@ export default class App extends Component {
           </div>
         ) : (
           //Loader from external library displays when allDataLoaded in state = false
-          <Loader />
+          <div className="loader">
+            <Loader />
+          </div>
         )}
 
         {/* <Flights

@@ -1,0 +1,17 @@
+.App {
+  min-height: 100vh;
+
+  @include single-column-layout {
+    .loaded-content {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  //   @include multi-column-layout {
+  //     .loaded-content {
+  //       display: grid;
+  //     }
+  //   }
+}

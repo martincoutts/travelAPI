@@ -13,4 +13,8 @@ code {
 }
 
 // Import partials
-// @import "scss/_circle.scss";
+// Utilities
+@import "./scss/utilities/mediaQueries";
+
+// Components
+@import "./scss/components/App";
