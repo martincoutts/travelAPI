@@ -7,6 +7,8 @@ import FlightsPreNoon from "./FlightsPreNoon";
 import SwedishFlights from "./SwedishFlights";
 import AirportsList from "./AirportsList";
 import LHRToDXBTime from "./LHRToDXBTime";
+import Loader from "./LoadingScreen";
+import CarriersList from "./CarriersList";
 import Flights from "./Flights";
 
 export default class App extends Component {
@@ -388,9 +390,10 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        {/* Conditional rendering based on all functions having been executed within componentDidMount */}
         {this.state.allDataLoaded ? (
-          <div>
+          <div className="loaded-content">
+            <Header />
             <MainInfo
               totalFlights={this.state.totalFlights.totalJourneys}
               totalAirports={this.state.airportsByPopulartiy.length}
@@ -414,11 +417,15 @@ export default class App extends Component {
             <LHRToDXBTime
               averageTimeLHRtoDXB={this.state.averageTimeLHRtoDXB.averageTime}
             />
+            <CarriersList
+              carriersList={this.state.carriersByPopularity}
+              sliceArr={this.sliceArr}
+            />
           </div>
         ) : (
-          <p>Loading Data</p>
-        ) // or whatever loading state you want, could be null
-        }
+          //Loader from external library displays when allDataLoaded in state = false
+          <Loader />
+        )}
 
         {/* <Flights
           flights={this.state.flightsArr}
