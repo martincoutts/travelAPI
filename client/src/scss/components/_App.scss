@@ -1,6 +1,19 @@
 .App {
   min-height: 100vh;
 
+  @include multi-column-layout {
+    .loaded-content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: minmax(50px, 100px) repeat(2, auto);
+      grid-template-areas:
+        "header header"
+        "main-info average-time "
+        "flights-pre-noon swedish-flights "
+        "airports-list carriers-list";
+    }
+  }
+
   @include single-column-layout {
     .loaded-content {
       display: flex;
@@ -8,10 +21,4 @@
       text-align: center;
     }
   }
-
-  //   @include multi-column-layout {
-  //     .loaded-content {
-  //       display: grid;
-  //     }
-  //   }
 }

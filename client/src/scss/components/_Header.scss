@@ -2,4 +2,10 @@
   grid-area: header;
   min-width: 100%;
   background-color: $main-brand-color;
+
+  @include multi-column-layout {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+  }
 }

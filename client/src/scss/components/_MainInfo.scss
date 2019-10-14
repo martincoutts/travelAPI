@@ -1,3 +1,11 @@
 #main-info-container {
   grid-area: main-info;
+  @include multi-column-layout {
+    flex-direction: row;
+    justify-content: center;
+    .main-info-tag {
+      margin: 20px;
+      text-align: center;
+    }
+  }
 }
