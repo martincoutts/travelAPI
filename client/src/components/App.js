@@ -384,6 +384,7 @@ export default class App extends Component {
 
     return hoursAndMins;
   };
+
   /////////////////////////Utility Functions////////////////////////////////////
 
   // App component rendering////////////////////////////////////
