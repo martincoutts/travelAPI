@@ -28,6 +28,7 @@ export default class App extends Component {
   // Takes in original object from API
   // Filters out just the array for manipulation and places it into state
   // Executes all functions which are required on loading
+  // Once all functions have run and loaded data into state allDataLoaded becomes true and loading state is stopped
   componentDidMount() {
     fetch("/api/flights")
       .then(res => res.json())
