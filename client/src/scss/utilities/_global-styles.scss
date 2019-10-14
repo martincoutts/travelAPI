@@ -1,0 +1,14 @@
+// Initialises font for entire app
+.App {
+  font-family: $body-font;
+}
+
+// Lower in cascade will alter only heading tags
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $title-font;
+}

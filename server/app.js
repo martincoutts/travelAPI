@@ -21,5 +21,14 @@ app.get("/api/flights", (req, res) => {
 // Initialising port, must be different from 3000 if using React
 const port = 5000;
 
+// Callback function for checking connecting or error
+app.on("error", error => {
+  throw new Error(`[Server]::ERROR:${error.message}`);
+});
+
 // Starting express server
 app.listen(port, () => `Server running on port ${port}`);
+console.log(`Server listening on port${port}`);
+
+// Future requirements
+// - Get concurrently working so that server and client run from one command

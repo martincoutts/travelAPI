@@ -10,8 +10,12 @@ class LoadingScreen extends React.Component {
   }
   render() {
     return (
-      <div>
-        <BallBeat color={"#123abc"} loading={this.state.loading} />
+      <div id="loader-div">
+        <BallBeat
+          className="loader"
+          color={"#123abc"}
+          loading={this.state.loading}
+        />
       </div>
     );
   }

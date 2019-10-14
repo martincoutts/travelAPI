@@ -9,7 +9,6 @@ import AirportsList from "./AirportsList";
 import LHRToDXBTime from "./LHRToDXBTime";
 import Loader from "./LoadingScreen";
 import CarriersList from "./CarriersList";
-import Flights from "./Flights";
 
 export default class App extends Component {
   state = {
@@ -28,6 +27,7 @@ export default class App extends Component {
   // Takes in original object from API
   // Filters out just the array for manipulation and places it into state
   // Executes all functions which are required on loading
+  // Once all functions have run and loaded data into state allDataLoaded becomes true and loading state is stopped
   componentDidMount() {
     fetch("/api/flights")
       .then(res => res.json())
@@ -384,6 +384,7 @@ export default class App extends Component {
 
     return hoursAndMins;
   };
+
   /////////////////////////Utility Functions////////////////////////////////////
 
   // App component rendering////////////////////////////////////
@@ -424,17 +425,10 @@ export default class App extends Component {
           </div>
         ) : (
           //Loader from external library displays when allDataLoaded in state = false
-          <Loader />
+          <div className="loader">
+            <Loader />
+          </div>
         )}
-
-        {/* <Flights
-          flights={this.state.flightsArr}
-          flightsPreNoon={this.flightsPreNoon}
-          findPercentage={this.findPercentage}
-          swedishFlights={this.state.swedishFlights}
-          totalFlights={this.state.totalFlights}
-          airportPopularity={this.airportPopularity}
-        /> */}
       </div>
     );
   }

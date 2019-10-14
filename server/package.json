@@ -4,18 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon app.js"
+    "server": "node app.js",
+    "devStart": "nodemon app.js",
+    "client": "npm start --prefix ../client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^5.0.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "xml2json": "^0.11.2"
   },
   "devDependencies": {
     "dotenv": "^8.1.0",
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.3",
+    "concurrently": "^5.0.0"
   }
 }

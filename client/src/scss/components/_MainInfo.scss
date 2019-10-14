@@ -1,0 +1,25 @@
+#main-info-container {
+  grid-area: main-info;
+
+  .main-info-tag {
+    font-size: 1.2rem;
+    flex-direction: row;
+    justify-content: center;
+    .main-info-tag {
+      margin: 20px;
+      text-align: center;
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+
+  @include multi-column-layout {
+    flex-direction: row;
+    justify-content: center;
+    .main-info-tag {
+      margin: 20px;
+      text-align: center;
+    }
+  }
+}

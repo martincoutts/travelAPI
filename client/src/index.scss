@@ -13,4 +13,22 @@ code {
 }
 
 // Import partials
-// @import "scss/_circle.scss";
+// Variables
+@import "./scss/variables/colors";
+@import "./scss/variables/fonts";
+
+// Utilities
+@import "./scss/utilities/global-styles";
+@import "./scss/utilities/mediaQueries";
+@import "./scss/utilities/classes";
+
+// Components
+@import "./scss/components/App";
+@import "./scss/components/Loader";
+@import "./scss/components/Header";
+@import "./scss/components/MainInfo";
+@import "./scss/components/FlightsPreNoon";
+@import "./scss/components/SwedishFlights";
+@import "./scss/components/AirportsList";
+@import "./scss/components/LHRToDXBTime";
+@import "./scss/components/CarriersList";

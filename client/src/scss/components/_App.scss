@@ -1,0 +1,35 @@
+.App {
+  min-height: 100vh;
+  padding-bottom: 10px;
+
+  @include multi-column-layout {
+    .loaded-content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: minmax(50px, 120px) auto;
+      grid-template-areas:
+        "header header header"
+        "main-info average-time  carriers-list"
+        "airports-list swedish-flights flights-pre-noon";
+    }
+  }
+
+  @include single-column-layout {
+    .loaded-content {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  @include ultrawide-single-row-layout {
+    .loaded-content {
+      display: grid;
+      grid-template-columns: repeat(autofit, 1fr);
+      grid-template-rows: minmax(50px, 120px) auto;
+      grid-template-areas:
+        "header header header header header header"
+        "main-info average-time  carriers-list airports-list swedish-flights flights-pre-noon";
+    }
+  }
+}

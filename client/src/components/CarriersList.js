@@ -4,9 +4,9 @@ const CarriersList = props => {
   const topTenCarriers = props.sliceArr(props.carriersList, 10);
 
   return (
-    <div>
+    <div className="info-card" id="carriers-list">
       <h2>Most Popular Carriers</h2>
-      <ol>
+      <ol className="list">
         {topTenCarriers.map((carrier, index) => {
           return <li key={index + 1}>{carrier}</li>;
         })}
