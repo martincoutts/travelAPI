@@ -13,8 +13,16 @@ code {
 }
 
 // Import partials
+// Variables
+@import "./scss/variables/colors";
+
 // Utilities
 @import "./scss/utilities/mediaQueries";
+@import "./scss/utilities/classes";
 
 // Components
 @import "./scss/components/App";
+@import "./scss/components/Header";
+@import "./scss/components/MainInfo";
+@import "./scss/components/FlightsPreNoon";
+@import "./scss/components/SwedishFlights";

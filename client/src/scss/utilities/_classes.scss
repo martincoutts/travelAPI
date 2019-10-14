@@ -1,0 +1,7 @@
+.info-card {
+  background-color: rgba($light-shades, 0.75);
+  margin: 15px 15px 5px 15px;
+  @include single-column-layout {
+    padding: 0 5px 20px 5px;
+  }
+}

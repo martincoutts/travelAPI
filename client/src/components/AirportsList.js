@@ -6,7 +6,7 @@ const AirportsList = props => {
   const topTenAirports = props.sliceArr(props.airportsList, 10);
 
   return (
-    <div>
+    <div className="info-card" id="airports-list">
       <h2>Most Popular Airports</h2>
       <ol>
         {topTenAirports.map((airport, index) => {
